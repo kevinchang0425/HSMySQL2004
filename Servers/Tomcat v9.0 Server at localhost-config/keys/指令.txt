@@ -1,0 +1,11 @@
+<!-- 以下指令在一般命令字元執行即可-->
+<!-- 以下指令產生 web_private.key ; web_cert.crt 兩個檔案-->
+openssl req -x509 -new -nodes -sha256 -utf8 -days 3650 -newkey rsa:2048 -keyout web_private.key -out web_cert.crt -config ssl.conf
+
+<!-- 以下指令產生 web_private.key 檔案-->
+openssl pkcs12 -export -in web_cert.crt -inkey web_private.key -out web_ca.pfx
+
+password = 12345678
+
+<!-- 以下指令在管理員命令字元執行-->
+keytool -genkeypair -alias tomcat -keyalg RSA -keypass 123456 -storepass 123456 -keysize 1024 -validity 365 -keystore tomcat.pkcs12 -storetype pkcs12
