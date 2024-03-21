@@ -19,14 +19,14 @@ public class GPSRepositoryImpl implements GPSRepository {
 	
 	@Override
 	public List<GPS> findAllGps() {
-		String sql = "select id, latitude, longitude, meter, location, locationName from gps";
+		String sql = "select id, latitude, longitude, meter, location, location_Name from gps";
 		List<GPS> gpsList = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(GPS.class));
 		return gpsList;
 	}
 
 	@Override
 	public GPS getGpsByID(Integer id) {
-		String sql = "select id, latitude, longitude, meter, location, locationName from gps where id = ?";
+		String sql = "select id, latitude, longitude, meter, location, location_Name from gps where id = ?";
 		try {
 			GPS gps = jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(GPS.class), id);
 			return gps;
@@ -37,7 +37,7 @@ public class GPSRepositoryImpl implements GPSRepository {
 
 	@Override
 	public GPS getGpsByLocationName(String locationName) {
-		String sql = "select id, latitude, longitude, meter, location, locationName from gps where locationName = ?";
+		String sql = "select id, latitude, longitude, meter, location, location_Name from gps where locationName = ?";
 		try {
 			GPS gps = jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(GPS.class), locationName);
 			return gps;
@@ -46,6 +46,7 @@ public class GPSRepositoryImpl implements GPSRepository {
 		}
 	}
 
+	// 接收來自GPSservice組裝完成的Gps(gps)物件
 	@Override
 	public Boolean addGps(GPS gps) {
 		String sql = "insert into gps(latitude, longitude, meter, location, location_name) values (?, ?, ?, ?, ?)";
