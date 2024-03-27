@@ -7,7 +7,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.hs.rest.gps.model.GPS;
+import com.hs.rest.gps.model.po.GPS;
 
 //資料庫要提供哪些服務，依照規格interface實作
 @Repository
@@ -18,7 +18,7 @@ public class GPSRepositoryImpl implements GPSRepository {
 	
 	
 	@Override
-	public List<GPS> findAllGps() {
+	public List<GPS> queryAllGps() {
 		String sql = "select id, latitude, longitude, meter, location, location_Name from gps";
 		List<GPS> gpsList = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(GPS.class));
 		return gpsList;

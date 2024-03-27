@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import com.hs.rest.gps.model.GPS;
+import com.hs.rest.gps.model.po.GPS;
 import com.hs.rest.gps.repository.GPSRepository;
 
 @Service
@@ -17,6 +17,26 @@ public class GPSService {
 	// @Qualifier("GPSRepositoryImpl")
 	private GPSRepository gpsRepository;
 
+	// GPS 的 CRUD
+	
+	// 多筆查詢
+	// 建立一個List<GPS>查詢清單，來接收GPScontroller的查詢請求
+	// 回復由gpsRepository.findAllGps()查詢的結果
+	public List<GPS> queryAllGps(){
+			return gpsRepository.queryAllGps();
+	}
+	
+	// 單筆查詢
+	public GPS getGpsByID(Integer id) {
+		// Service收到資料，可以先作一些判斷，如果id值是空的，提早結束
+		if(id == null) {
+			return null;
+		}
+		GPS gps = gpsRepository.getGpsByID(id);
+		return gps;
+	}
+	
+	// 新增
 	// GPSService 收到Controller傳送的參數，必須組裝成一個GPS物件
 	// 再將 GPS 物件傳送給 Impl 新增進資料庫
 	public Boolean addGPS(
@@ -39,13 +59,6 @@ public class GPSService {
 		return status;
 	}
 	
-	// GPS 的 CRUD
-	// 新增
-	// 建立一個List<GPS>查詢清單，來接收GPScontroller的查詢請求
-	// 回復由gpsRepository.findAllGps()查詢的結果
-	public List<GPS> findAllGps(){
-		return gpsRepository.findAllGps();
-	}
 	
 	
 	// 刪除
