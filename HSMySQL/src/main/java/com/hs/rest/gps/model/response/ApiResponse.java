@@ -16,3 +16,4 @@ public class ApiResponse {	// 可以用犯行<T>表示：取type的字首，指�
 	//private T data;		// 也可以用	private Object data; 表示
 	private Object data;	// 也可以用	private Object data; 表示
 }
+
