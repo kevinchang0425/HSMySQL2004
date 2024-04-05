@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -14,13 +15,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hs.rest.gps.model.po.GPS;
 import com.hs.rest.gps.model.response.ApiResponse;
 import com.hs.rest.gps.service.GPSService;
 
-@RestController
+@Controller
 @RequestMapping("/gps")
 public class GPSController {
 
@@ -35,6 +37,12 @@ public class GPSController {
 		return sdf.format(new Date());
 	}
 	
+	// 到Rest首頁
+	@GetMapping("/main_page")
+	public String main() {
+		return "rest";
+	}
+	
 	//*************************
 	// GPS 的 CRUD
 	//*************************
@@ -46,6 +54,7 @@ public class GPSController {
 	// 建立一個Get接收瀏覽器傳送過來的請求
 	// 因為前端葉面還沒建立，所以先建立一個List<GPS>清單回傳GPSService查詢的findAllGps()的結果
 	@GetMapping
+	@ResponseBody
 	// 多筆查詢 https://3.27.70.100:8443/HSMySQL/mvc/gps
 //	public List<GPS> queryAllGps(){
 //			 List<GPS> gpsList = gpsService.queryAllGps();
@@ -65,6 +74,7 @@ public class GPSController {
 	
 	// 單筆查詢
 	@GetMapping("/{id}")
+	@ResponseBody
 	// 單筆查詢 https://3.27.70.100:8443/HSMySQL/mvc/gps/1
 	// 單筆查詢 https://3.27.70.100:8443/HSMySQL/mvc/gps/...
 //	public GPS getGpsByID(@PathVariable("id") Integer id) {
@@ -91,6 +101,7 @@ public class GPSController {
 	// GPSservice傳回符合距離範圍設定的地點清單
 	// https://localhost:8443/HSMySQL/mvc/gps/findGpsWithinDistance?lng=${放入經度參數}&lat=${放入緯度參數}
 	@GetMapping("/findGpsWithinDistance")
+	@ResponseBody
 	public ApiResponse findGpsWithinDistance(@RequestParam Double lng, @RequestParam Double lat) {
 		// 經由GPSservice查詢回傳的結果，得到符合設定距離的 GPS點位 清單
 		List<GPS> matcingGPSList = gpsService.findGpsWithinDistance(lng, lat);
@@ -105,6 +116,7 @@ public class GPSController {
 	
 	// 新增
 	@PostMapping
+	@ResponseBody
 //	public Boolean addGPS(
 //			// ?後面帶參數，或是網址後面帶參數，使用@RequestParam()
 //			@RequestParam("latitude") Double latitude,
@@ -172,6 +184,7 @@ public class GPSController {
 	// 修改(動態)
 	// 動態用PatchMapping (完整修改用PutMapping)
 	@PatchMapping("/{id}")
+	@ResponseBody
 	public ApiResponse updateGPS(@PathVariable("id") Integer id, @RequestBody GPS gps) {
 		
 		// id原本是路徑參數，在這邊注入物件，service就不用再注入
@@ -194,6 +207,7 @@ public class GPSController {
 	// 例如： .../gps/5 <- 刪除 id = 5 的紀錄
 	// 路徑後面帶參數，使用@PathVariable()
 	@DeleteMapping("/{id}")
+	@ResponseBody
 //	public Boolean deleteGPS(@PathVariable("id") Integer id) {
 //		Boolean status = gpsService.deleteGps(id);
 //		return status;

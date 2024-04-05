@@ -107,14 +107,7 @@ public class GPSService {
 			System.out.printf("(%s, %s) (%s, %s) %.2f公尺 <= %s公尺%n", gps.getLongitude(), gps.getLatitude(), lng, lat, distance, gps.getMeter());
 		}
 		return matcingGPSList;
-		
-		
-		
+
 	}
-	
-	
-	
-	
-	
-	
+
 }
