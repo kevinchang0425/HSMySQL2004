@@ -12,8 +12,14 @@
     <head>
     	<!-- 資料編碼 -->
    		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    	<!-- 先執行確認GPS狀態，並且加一個亂數避免jsp的快取占用新網頁資源下載 -->
+    	<!-- 先執行確認GPS狀態 -->
+    	<!-- 並且加一個亂數避免jsp的快取占用新網頁資源下載 -->
+    	<!-- 
     	<script src="/HSMySQL/js/gps.js?<%=new Random().nextInt(100000) %>"></script>
+    	 -->
+    	<!-- 加一個亂數避免jsp的快取占用新網頁資源下載 -->
+        <script src="../../js/checkflow.js?<%=new Random().nextInt(100000) %>" />
+    	
     	<!-- 再執行主程式 -->
         <title>HS 員工簽到表 II</title>
         <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/pure-min.css">

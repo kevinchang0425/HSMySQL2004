@@ -1,4 +1,4 @@
-package com.hs.rest.gps.model.response;
+package com.hs.rest.key.model.response;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -36,3 +36,4 @@ public class ApiResponse {	// 可以用犯行<T>表示：取type的字首，指�
 	}
 	
 }
+

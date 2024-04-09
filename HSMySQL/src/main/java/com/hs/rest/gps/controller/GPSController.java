@@ -29,13 +29,13 @@ public class GPSController {
 	@Autowired
 	private GPSService gpsService;
 	
-	// 建立日期時間顯示格式
-	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss E");
-	
-	// 取得現在時間
-	private String getNow() {
-		return sdf.format(new Date());
-	}
+//	// 建立日期時間顯示格式
+//	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss E");
+//	
+//	// 取得現在時間
+//	private String getNow() {
+//		return sdf.format(new Date());
+//	}
 	
 	// 到Rest首頁
 	@GetMapping("/main_page")
@@ -65,10 +65,10 @@ public class GPSController {
 		 List<GPS> gpsList = gpsService.queryAllGps();
 		 // 建立回應物件
 		 if (gpsList.size() == 0) {
-			ApiResponse apiResponse = new ApiResponse(false, "無資料", getNow(), null);
+			ApiResponse apiResponse = new ApiResponse(false, "無資料", null);
 			return apiResponse;
 		}
-		 ApiResponse apiResponse = new ApiResponse(true, "多筆查詢成功", getNow(), gpsList);
+		 ApiResponse apiResponse = new ApiResponse(true, "多筆查詢成功", gpsList);
 		 return apiResponse;
 	}
 	
@@ -85,10 +85,10 @@ public class GPSController {
 	public ApiResponse getGpsByID(@PathVariable("id") Integer id) {
 		GPS gps = gpsService.getGpsByID(id);
 		if (gps == null) {
-			ApiResponse apiResponse = new ApiResponse(false, "無資料", getNow(), null);
+			ApiResponse apiResponse = new ApiResponse(false, "無資料", null);
 			return apiResponse;
 		}
-		 ApiResponse apiResponse = new ApiResponse(true, "單筆查詢成功", getNow(), gps);
+		 ApiResponse apiResponse = new ApiResponse(true, "單筆查詢成功", gps);
 		 return apiResponse;
 	}
 	
@@ -106,9 +106,9 @@ public class GPSController {
 		// 經由GPSservice查詢回傳的結果，得到符合設定距離的 GPS點位 清單
 		List<GPS> matcingGPSList = gpsService.findGpsWithinDistance(lng, lat);
 		if(matcingGPSList.size() == 0) { //如果傳回值為0，表示查詢無符合資料
-			return new ApiResponse(false, "無符合距離的GPS資料", getNow(), null);	
+			return new ApiResponse(false, "無符合距離的GPS資料", null);	
 		}
-		return new ApiResponse(true, "有符合距離的GPS資料", getNow(), matcingGPSList);	
+		return new ApiResponse(true, "有符合距離的GPS資料", matcingGPSList);	
 	}
 	
 	
@@ -170,12 +170,12 @@ public class GPSController {
 			try {
 				Boolean status = gpsService.addGPS(gps);
 				if (status == false) {
-					apiResponse = new ApiResponse(false, "新增失敗", getNow(), null);
+					apiResponse = new ApiResponse(false, "新增失敗", null);
 				}
-				apiResponse = new ApiResponse(true, "新增成功", getNow(), status);
+				apiResponse = new ApiResponse(true, "新增成功", status);
 
 			} catch (Exception e) {
-				apiResponse = new ApiResponse(false, "新增錯誤", getNow(), e.getMessage());
+				apiResponse = new ApiResponse(false, "新增錯誤", e.getMessage());
 			}
 			return apiResponse;
 		}
@@ -192,9 +192,9 @@ public class GPSController {
 		Boolean status = gpsService.updateGPS(gps);
 		ApiResponse apiResponse = null;
 		if (status) {
-			apiResponse = new ApiResponse(true, "修改成功", getNow(), status);
+			apiResponse = new ApiResponse(true, "修改成功", status);
 		} else {
-			apiResponse = new ApiResponse(false, "修改失敗", getNow(), null);
+			apiResponse = new ApiResponse(false, "修改失敗", null);
 		}
 		return apiResponse;	
 	}
@@ -217,9 +217,9 @@ public class GPSController {
 		ApiResponse apiResponse = null;
 		Boolean status = gpsService.deleteGps(id);
 		if(status) {
-			apiResponse = new ApiResponse(true, "刪除成功", getNow(), status);
+			apiResponse = new ApiResponse(true, "刪除成功", status);
 		} else {
-			apiResponse = new ApiResponse(false, "刪除失敗", getNow(), status);
+			apiResponse = new ApiResponse(false, "刪除失敗", status);
 		}
 		return apiResponse;	
 	}
