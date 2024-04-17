@@ -17,8 +17,7 @@
     	<!-- 
     	<script src="/HSMySQL/js/gps.js?<%=new Random().nextInt(100000) %>"></script>
     	 -->
-    	<!-- 加一個亂數避免jsp的快取占用新網頁資源下載 -->
-        <script src="../../js/checkflow.js?<%=new Random().nextInt(100000) %>" />
+    	
     	
     	<!-- 再執行主程式 -->
         <title>HS 員工簽到表 II</title>
@@ -28,6 +27,9 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <!--呼叫ipcheck.jspf確認ip資料-->
         <%--<%@include file="include/ipcheck.jspf" %>--%>
+        
+		<!-- 加一個亂數避免jsp的快取占用新網頁資源下載 -->
+        <script src="../../js/checkflow.js?<%=new Random().nextInt(100000) %>" ></script>
 
         <script>
             // 在 empNo 欄位中按下 enter 就可以查詢今日員工簽到時段
@@ -120,8 +122,8 @@
                 }
                 for (var i = 0; i < list.length; i++) {
                     //利用上面刻的format方法塞入資料
-                    var tag = '<input onclick="openSignInBtn()" id="statusId{0}" name="statusId" type="radio" value="{1}"/>&nbsp;&nbsp;<span style="color:{2}">{3}</span>&nbsp;&nbsp;&nbsp;&nbsp;'
-                            .format((i + 1), list[i].statusId, changeClockOnItemColor(list[i].statusId, clockon_list), list[i].statusName);
+                   var tag = '<input onclick="openSignInBtn()" id="statusId{0}" name="statusId" type="radio" value="{1}"/>&nbsp;&nbsp;<span style="color:{2}">{3}</span>&nbsp;&nbsp;&nbsp;&nbsp;{4}'
+                            .format((i + 1), list[i].statusId, changeClockOnItemColor(list[i].statusId, clockon_list), list[i].statusName, (i%2==1?"<br>":""));
 
                     $('#schedulerStatus').append(tag); //加入tag標籤
                 }
@@ -165,7 +167,8 @@
                         <fieldset>
                             <legend>公告欄(試用版)：</legend>
                             1.簽到系統第二版(上線測試版)
-                            <br>&nbsp;&nbsp;&nbsp;公告日期:2021/03/01
+                            <br>&nbsp;&nbsp;&nbsp;公告日期:2024/03/01
+                            <!--
                             <ul>
                                 <font size="2">
                                 <li><font color="#CC0000">可進行排班打卡功能</font>
@@ -177,10 +180,13 @@
                                 <br>【其他彩蛋還在保溫中，記得多找找！】</li><br>
                                 </font>
                             </ul>
+                            -->
 
+                            <!--
                             2.打卡標準時間更新如下：
-                            <!--                            <br>&nbsp;&nbsp;&nbsp;公告日期:2020/06/02-->
-                            <!--                            <ul>
+                                                        <br>&nbsp;&nbsp;&nbsp;公告日期:2020/06/02-->
+                                                        <!--
+                                                        <ul>
                                                             <font size="2">
                                                             <font color="#0000E3">
                                                             <li>診所周一至周五(早班)<br>上班 0800 中午休息 1300 中午上班 1500</li><br>
@@ -199,8 +205,10 @@
                                                             <li>診所周六(早晚班)<br>上班 0900 中午休息 1300 中午上班 1500</li><br>
                                                             </font>
                                                             </font>
-                                                        </ul>-->
+                                                        </ul>
+                                                        -->
 
+                            <!--
                             <br>&nbsp;&nbsp;&nbsp;公告日期:2021/05/25
                             <table class="pure-table pure-table-bordered">
                                 <thead>
@@ -220,6 +228,7 @@
                                     </c:forEach>
                                 </tbody>
                             </table>
+                            -->
 
 
                             <legend>公告欄結尾</legend>
